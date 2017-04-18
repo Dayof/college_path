@@ -32,8 +32,7 @@ Este programa foi implementado utilizando o sistema operacional ``macOS Sierra``
   - Matrícula: 13/0107191
   - E-mail: dayannefernandesc@gmail.com
   - GitHub: [Dayof](https://github.com/Dayof)
-
-  -
-    - Matrícula:
-    - E-mail:
-    - GitHub:
+- Renato Avellar Nobre
+  - Matrícula: 15/0146698
+  - E-mail: rekanobre@gmail.com
+  - GitHub: [Skalwalker](https://github.com/Skalwalker)
