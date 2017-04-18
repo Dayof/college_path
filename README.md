@@ -1,6 +1,6 @@
 # Caminho de Matérias do Curso de Ciência da Computação (UnB)
 
-Primeiro projeto da matéria de Teoria e Aplicação de Grafos (TAG) do semestre de 2017/1.
+Segundo projeto da matéria de Teoria e Aplicação de Grafos (TAG) do semestre de 2017/1.
 
 ## Execução
 
@@ -18,7 +18,7 @@ Este comando acima compila o programa utilizando o [Makefile](https://github.com
 
 ## Pré-requisitos do sistema
 
-Este programa foi implementado utilizando o sistema operacional ``macOS Sierra``, versão ``10.12.3``. A linguagem de programação utilizada para implementar todo o projeto foi ``C++11``.
+Este programa foi testado no sistema operacional ``macOS Sierra``, versão ``10.12``. A linguagem de programação utilizada para implementar todo o projeto foi ``C++11``.
 
 ## Detalhes sobre o projeto
 
