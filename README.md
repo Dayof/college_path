@@ -1,6 +1,6 @@
-# Caminho de Matérias do Curso de Ciência da Computação (UnB)
+# Fluxo de Matérias do CiC - UnB
 
-Primeiro projeto da matéria de Teoria e Aplicação de Grafos (TAG) do semestre de 2017/1.
+Segundo projeto da matéria de Teoria e Aplicação de Grafos (TAG) do semestre de 2017/1.
 
 ## Execução
 
@@ -22,6 +22,24 @@ Este programa foi implementado utilizando o sistema operacional ``macOS Sierra``
 
 ## Detalhes sobre o projeto
 
+Fluxo de matérias do curso de Ciência da Computação da Universidade de Brasília.
+
+### TODO
+
+Todo o ciclo de desenvolvimento deverá conter a implementação, teste e documentação do código.
+
+- Makefile, README e bash dos arquivos
+- Source e headers básicos
+- Colocar estruturas de dados a serem utilizadas no header
+- Webscraper das matérias do CiC Bacharelado no Matrícula Web (courses.txt)
+- Elaborar e colocar os fatores de dificuldade de cada matéria
+- Leitura do arquivo courses.txt na main
+- Inserção dos dados das matérias no grafo
+- Calcular o peso (P=Cr*f) de cada matéria e inserir nas arestas
+- Algoritmo de ordenação topológica
+- Algoritmo de cálculo do caminho crítico
+- Menu com informações no terminal para o usurário escolher as ações do sistema
+
 ### Funcionalidades
 
 ### Fluxo do programa
@@ -33,7 +51,7 @@ Este programa foi implementado utilizando o sistema operacional ``macOS Sierra``
   - E-mail: dayannefernandesc@gmail.com
   - GitHub: [Dayof](https://github.com/Dayof)
 
-  -
-    - Matrícula:
-    - E-mail:
-    - GitHub:
+-
+  - Matrícula:
+  - E-mail:
+  - GitHub:
