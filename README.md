@@ -18,7 +18,7 @@ Este comando acima compila o programa utilizando o [Makefile](https://github.com
 
 ## Pré-requisitos do sistema
 
-Este programa foi implementado utilizando o sistema operacional ``macOS Sierra``, versão ``10.12.3``. A linguagem de programação utilizada para implementar todo o projeto foi ``C++11``.
+Este programa foi testado no sistema operacional ``macOS Sierra``, versão ``10.12``. A linguagem de programação utilizada para implementar todo o projeto foi ``C++11``.
 
 ## Detalhes sobre o projeto
 
@@ -51,7 +51,7 @@ Todo o ciclo de desenvolvimento deverá conter a implementação, teste e docume
   - E-mail: dayannefernandesc@gmail.com
   - GitHub: [Dayof](https://github.com/Dayof)
 
--
-  - Matrícula:
-  - E-mail:
-  - GitHub:
+- Renato Avellar Nobre
+  - Matrícula: 15/0146698
+  - E-mail: rekanobre@gmail.com
+  - GitHub: [Skalwalker](https://github.com/Skalwalker)
