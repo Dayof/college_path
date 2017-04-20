@@ -47,15 +47,16 @@ Nome : Z``. Neste programa com a lista fornecida foi possível encontrar 3 cliqu
 
 ### Fluxo do programa
 
+- Coleta dados do Matrícula Web sobre o fluxo do CiC UnB e persiste as informações úteis para este sistema em um arquivo denominado ``courses.txt``;
 - Lê os seguintes dados de cada matéria do fluxo de CiC da UnB :
- - Código,
+  - Código,
  - nome,
  - número de créditos,
  - fator de dificuldade,
  - matérias que se disponibilizam após a aprovação na matéria que está sendo processada.
 - Calcula o peso de cada matéria a partir do seguinte cálculo : peso = número de créditos * fator de dificuldade da matéria;
-- Insere os dados de código, nome e peso da matéria nos vértices do grafo;
-- Processa e insere no grafo cada vértice adjacente das matérias do fluxo;
+- Insere os dados de código, nome e peso das matérias nos vértices do grafo;
+- Processa e insere no grafo cada vértice adjacente das matérias do fluxo.
 
 ## Autoria
 
