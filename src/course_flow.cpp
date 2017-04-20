@@ -10,11 +10,14 @@
  */
 
 #include "course_flow.inl"
+float calculateWeight(int cred, float f){
+    return cred*f;
+}
 
+void insertAllOnGraph(string cod, string name, int cred, float f, int i){
+    GRAPH[i].push_back(make_pair(make_pair(cod, name), calculateWeight(cred, f)));
+    cout << GRAPH[i][0].first.first << GRAPH[i][0].first.second << GRAPH[i][0].second  << endl;
 
-void insertVertexOnGraph(string cod, string name, int i){
-    GRAPH[i].push_back(make_pair(make_pair(cod, name), 0));
-    cout << GRAPH[i][0].first.first << GRAPH[i][0].first.second << endl;
 }
 /**
  * Main function. Read and load basic data, then execute all main
@@ -40,7 +43,7 @@ int main(){
     {
         scod = cod;
         sname = name;
-        insertVertexOnGraph(scod, sname, i);
+        insertAllOnGraph(scod, sname, cred, f, i);
         ++i;
     }
 

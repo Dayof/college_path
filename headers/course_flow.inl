@@ -33,7 +33,9 @@ using namespace std;
 /* -- Functions to show data on command terminal -- */
 
 /* -- Functions to create and populate the base graph -- */
-void insertVertexOnGraph(string, string, int);
+float calculateWeight(int, float);
+
+void insertAllOnGraph(string, string, int, float, int);
 
 /* -- Global variables definitions -- */
 #define GRAPHSIZE 4
