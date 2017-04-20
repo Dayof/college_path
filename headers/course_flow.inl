@@ -33,6 +33,8 @@ using namespace std;
 /* -- Functions to show data on command terminal -- */
 
 /* -- Functions to create and populate the base graph -- */
+void printAllAdj();
+
 void processCodeLink(string, int);
 
 void insertLinksOnGraph(vector<string>);

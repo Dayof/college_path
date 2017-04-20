@@ -15,16 +15,50 @@
 //
 // }
 
+void printAllAdj(){
+    for(int i = 0; i < GRAPHSIZE; i++){
+        for(int j = 0; j < GRAPH[i].second.size();++j){
+            cout << GRAPH[i].second[j] << endl;
+        }
+    }
+}
+
+int findIndexFromCode(string code){
+    int result = -1;
+
+    for(int i = 0; i < GRAPHSIZE; i++){
+        cout << "it:-" << GRAPH[i].first.first.first << "-" << code << "-" << endl;
+        if(code == GRAPH[i].first.first.first){
+            result = i;
+            cout << code << ": " << result << endl;
+            break;
+        }
+    }
+    return result;
+}
 
 void processCodeLink(string links, int origin_index){
     string token;
     size_t pos = 0;
+    vector<int> adj;
+    int index;
+
     while((pos = links.find(' ')) != (string::npos)){
         token = links.substr(0, pos);
-        cout << token << endl;
+        cout << "Token: " << token << endl;
+        index = findIndexFromCode(token);
+        if(index != -1){
+            adj.push_back(index);
+        }
+        // cout << adj << endl;
         links.erase(0, pos+1);
     }
-    cout << links << endl;
+    index = findIndexFromCode(token);
+    if(index != -1){
+        adj.push_back(index);
+    }
+
+    GRAPH[origin_index].second = adj;
 }
 
 void insertLinksOnGraph(vector<string> links){
@@ -45,7 +79,7 @@ void insertAllOnGraph(string cod, string name, int cred, float f, int i){
     pair<pair<pair<string, string>, float>, vector<int> > node_list = make_pair(node, vector<int>());
 
     GRAPH[i] = node_list;
-    cout << GRAPH[i].first.first.first << GRAPH[i].first.first.second << GRAPH[i].first.second << endl;
+    // cout << GRAPH[i].first.first.first << GRAPH[i].first.first.second << GRAPH[i].first.second << endl;
 }
 
 /**
@@ -79,9 +113,10 @@ int main(){
         ++i;
     }
 
-    //insertLinksOnGraph(link);
+    insertLinksOnGraph(link);
 
-  fclose(pF);
+    printAllAdj();
+    fclose(pF);
 
-  return 0;
+    return 0;
 }
