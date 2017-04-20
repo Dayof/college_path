@@ -5,15 +5,11 @@
  *  to fully execute the second project of TAG 2017/1.
  *
  *  @author Dayanne Fernandes da Cunha 13/0107191
-  *  @author Renato Avellar Nobre 15/0146698
+ *  @author Renato Avellar Nobre 15/0146698
  *  @bug No bug known.
  */
 
 #include "course_flow.inl"
-
-// void insertArcsOnGraph(){
-//
-// }
 
 void printAllAdj(){
     for(int i = 0; i < GRAPHSIZE; i++){
@@ -61,9 +57,7 @@ void processCodeLink(string links, int origin_index){
 
 void insertLinksOnGraph(vector<string> links){
     for(int i = 0; i < GRAPHSIZE; ++i)
-    {
         processCodeLink(links[i], i);
-    }
 
 }
 
@@ -77,7 +71,6 @@ void insertAllOnGraph(string cod, string name, int cred, float f, int i){
     pair<pair<pair<string, string>, float>, vector<int> > node_list = make_pair(node, vector<int>());
 
     GRAPH[i] = node_list;
-    // cout << GRAPH[i].first.first.first << GRAPH[i].first.first.second << GRAPH[i].first.second << endl;
 }
 
 /**

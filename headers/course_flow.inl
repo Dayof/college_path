@@ -32,21 +32,18 @@ using namespace std;
 
 /* -- Functions to show data on command terminal -- */
 
-/* -- Functions to create and populate the base graph -- */
 void printAllAdj();
 
-void processCodeLink(string, int);
-
-void insertLinksOnGraph(vector<string>);
-
-float calculateWeight(int, float);
+/* -- Functions to create and populate the base graph -- */
 
 void insertAllOnGraph(string, string, int, float, int);
+void insertLinksOnGraph(vector<string>);
+void processCodeLink(string, int);
+float calculateWeight(int, float);
 
 /* -- Global variables definitions -- */
-#define GRAPHSIZE 4
 
-// vector<vector<pair<pair<string, string>,int> > > GRAPH(GRAPHSIZE);
+#define GRAPHSIZE 4
 
 vector<pair<pair<pair<string, string>, float>, vector<int> > > GRAPH(GRAPHSIZE);
 
