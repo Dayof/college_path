@@ -33,6 +33,10 @@ using namespace std;
 /* -- Functions to show data on command terminal -- */
 
 /* -- Functions to create and populate the base graph -- */
+void processCodeLink(string, int);
+
+void insertLinksOnGraph(vector<string>);
+
 float calculateWeight(int, float);
 
 void insertAllOnGraph(string, string, int, float, int);
@@ -40,7 +44,8 @@ void insertAllOnGraph(string, string, int, float, int);
 /* -- Global variables definitions -- */
 #define GRAPHSIZE 4
 
-vector<vector<pair<pair<string, string>,int> > > GRAPH(GRAPHSIZE);
+// vector<vector<pair<pair<string, string>,int> > > GRAPH(GRAPHSIZE);
 
+vector<pair<pair<pair<string, string>, float>, vector<int> > > GRAPH(GRAPHSIZE);
 
 #endif // HEADERS_INL_INCLUDED
