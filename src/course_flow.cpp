@@ -17,20 +17,26 @@
  *
  * @return int 0 represents good exit, -1 represents bad exit
  */
-int main()
-{
-  FILE *pF = fopen("courses.txt", "r");
+int main(){
 
-  if(pF == NULL)
-  {
-    cout << "Error on open the file." << endl;
-    return -1;
-  }
+    char cod[15], name[50];
+    string scod, sname;
+    int cred;
+    float f;
 
-  // while (fscanf(pF, "%s | %[^|] | %[^\n]", reg, name, links) != EOF)
-  // {
-  //
-  // }
+    FILE *pF = fopen("courses.txt", "r");
+
+    if(pF == NULL) {
+        cout << "Error on open the file." << endl;
+        return -1;
+    }
+
+    while (fscanf(pF, "%s | %[^|] | %d | %f", cod, name, &cred, &f) != EOF)
+    {
+        scod = cod;
+        sname = name;
+        cout << scod << sname << cred << f << endl;
+    }
 
   fclose(pF);
 

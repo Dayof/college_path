@@ -1,0 +1,4 @@
+12 | Blha blha | 4 | 0.5
+13 | blha | 2 | 1.0
+14 | Blhaa | 6 | 1.5
+15 | lhablha | 4 | 0.5
