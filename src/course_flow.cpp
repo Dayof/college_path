@@ -11,6 +11,11 @@
 
 #include "course_flow.inl"
 
+
+void insertVertexOnGraph(string cod, string name, int i){
+    GRAPH[i].push_back(make_pair(make_pair(cod, name), 0));
+    cout << GRAPH[i][0].first.first << GRAPH[i][0].first.second << endl;
+}
 /**
  * Main function. Read and load basic data, then execute all main
  *  functionalities of the program.
@@ -21,7 +26,7 @@ int main(){
 
     char cod[15], name[50];
     string scod, sname;
-    int cred;
+    int cred, i = 0;
     float f;
 
     FILE *pF = fopen("courses.txt", "r");
@@ -35,7 +40,8 @@ int main(){
     {
         scod = cod;
         sname = name;
-        cout << scod << sname << cred << f << endl;
+        insertVertexOnGraph(scod, sname, i);
+        ++i;
     }
 
   fclose(pF);

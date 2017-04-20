@@ -33,7 +33,12 @@ using namespace std;
 /* -- Functions to show data on command terminal -- */
 
 /* -- Functions to create and populate the base graph -- */
+void insertVertexOnGraph(string, string, int);
 
 /* -- Global variables definitions -- */
+#define GRAPHSIZE 4
+
+vector<vector<pair<pair<string, string>,int> > > GRAPH(GRAPHSIZE);
+
 
 #endif // HEADERS_INL_INCLUDED
