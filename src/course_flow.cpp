@@ -27,10 +27,8 @@ int findIndexFromCode(string code){
     int result = -1;
 
     for(int i = 0; i < GRAPHSIZE; i++){
-        cout << "it:-" << GRAPH[i].first.first.first << "-" << code << "-" << endl;
         if(code == GRAPH[i].first.first.first){
             result = i;
-            cout << code << ": " << result << endl;
             break;
         }
     }
@@ -39,20 +37,20 @@ int findIndexFromCode(string code){
 
 void processCodeLink(string links, int origin_index){
     string token;
-    size_t pos = 0;
+    size_t pos = 0, found ;
     vector<int> adj;
     int index;
 
-    while((pos = links.find(' ')) != (string::npos)){
-        token = links.substr(0, pos);
-        cout << "Token: " << token << endl;
+    while((found = links.find_first_of(' ', pos)) != (string::npos)){
+        token = links.substr(pos, found - pos);
+        pos = found + 1;
         index = findIndexFromCode(token);
         if(index != -1){
             adj.push_back(index);
         }
-        // cout << adj << endl;
-        links.erase(0, pos+1);
     }
+    token = links.substr(pos);
+
     index = findIndexFromCode(token);
     if(index != -1){
         adj.push_back(index);
