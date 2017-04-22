@@ -5,7 +5,7 @@
  *  to fully execute the second project of TAG 2017/1.
  *
  *  @author Dayanne Fernandes da Cunha 13/0107191
-  *  @author Renato Avellar Nobre 15/0146698
+ *  @author Renato Avellar Nobre 15/0146698
  *  @bug No bug known.
  */
 
@@ -98,10 +98,8 @@ int findIndexFromCode(string code){
     int result = -1;
 
     for(int i = 0; i < GRAPHSIZE; i++){
-        cout << "it:-" << GRAPH[i].first.first.first << "-" << code << "-" << endl;
         if(code == GRAPH[i].first.first.first){
             result = i;
-            cout << code << ": " << result << endl;
             break;
         }
     }
@@ -110,20 +108,20 @@ int findIndexFromCode(string code){
 
 void processCodeLink(string links, int origin_index){
     string token;
-    size_t pos = 0;
+    size_t pos = 0, found ;
     vector<int> adj;
     int index;
 
-    while((pos = links.find(' ')) != (string::npos)){
-        token = links.substr(0, pos);
-        cout << "Token: " << token << endl;
+    while((found = links.find_first_of(' ', pos)) != (string::npos)){
+        token = links.substr(pos, found - pos);
+        pos = found + 1;
         index = findIndexFromCode(token);
         if(index != -1){
             adj.push_back(index);
         }
-        // cout << adj << endl;
-        links.erase(0, pos+1);
     }
+    token = links.substr(pos);
+
     index = findIndexFromCode(token);
     if(index != -1){
         adj.push_back(index);
@@ -134,9 +132,7 @@ void processCodeLink(string links, int origin_index){
 
 void insertLinksOnGraph(vector<string> links){
     for(int i = 0; i < GRAPHSIZE; ++i)
-    {
         processCodeLink(links[i], i);
-    }
 
 }
 
@@ -150,7 +146,6 @@ void insertAllOnGraph(string cod, string name, int cred, float f, int i){
     pair<pair<pair<string, string>, float>, vector<int> > node_list = make_pair(node, vector<int>());
 
     GRAPH[i] = node_list;
-    // cout << GRAPH[i].first.first.first << GRAPH[i].first.first.second << GRAPH[i].first.second << endl;
 }
 
 /**

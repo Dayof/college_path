@@ -41,6 +41,9 @@ void displayUI();
 void printAllAdj();
 
 /* -- Functions to create and populate the base graph -- */
+
+
+/* -- Functions to create and populate the base graph -- */
 void insertAllOnGraph(string, string, int, float, int);
 void insertLinksOnGraph(vector<string>);
 void processCodeLink(string, int);
@@ -55,6 +58,7 @@ float calculateWeight(int, float);
 #elif defined MSDOS || defined WIN32
   #define CLEARSCR() system("cls")
 #endif
+
 
 vector<pair<pair<pair<string, string>, float>, vector<int> > > GRAPH(GRAPHSIZE);
 
