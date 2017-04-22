@@ -1,4 +1,4 @@
-/** @file course_flow.cpp
+_/** @file course_flow.cpp
  *  @brief Main file.
  *
  *  This file contains all the functions and variables
@@ -11,9 +11,23 @@
 
 #include "course_flow.inl"
 
-// void insertArcsOnGraph(){
-//
-// }
+void processUIChoice(){
+    int a;
+
+    
+
+}
+
+void displayUI(){
+    cout << "--------------------COLLEGE PATH--------------------" << endl;
+    cout << "-                                                  -" << endl;
+    cout << "- 1. Topological Sort (Ordenacao Topologica)       -" << endl;
+    cout << "- 2. Critical Path (Caminho Critico)               -" << endl;
+    cout << "- 3. Help (Ajuda)                                  -" << endl;
+    cout << "- 4. Exit (Sair)                                   -" << endl;
+    cout << "-                                                  -" << endl;
+    cout << "----------------------------------------------------" << endl;
+}
 
 void printAllAdj(){
     for(int i = 0; i < GRAPHSIZE; i++){
