@@ -1,4 +1,4 @@
-_/** @file course_flow.cpp
+/** @file course_flow.cpp
  *  @brief Main file.
  *
  *  This file contains all the functions and variables
@@ -11,14 +11,70 @@ _/** @file course_flow.cpp
 
 #include "course_flow.inl"
 
-void processUIChoice(){
-    int a;
+void displayHeaderUI(){
+    cout << "--------------------COLLEGE PATH--------------------" << endl;
+    cout << "- Curso: Ciencia da Computacao (Bacharelado)       -" << endl;
+    cout << "----------------------------------------------------" << endl;
 
-    
+    cout << endl << ">>> DAG: " << endl;
+
+    //displayDAG()
+}
+
+void displayTopologicSortUI(){
+    displayHeaderUI();
+
+    cout << endl << ">>> Ordenacao Topologica: " << endl;
+
+    //displayTopologicSort()
+}
+
+void displayCriticalPathUI(){
+    displayHeaderUI();
+
+    cout << endl << ">>> Caminho Critico: " << endl;
+
+    //displayCriticalPAth()
+}
+
+void displayWrongChoiceUI(){
+
+}
+
+void displayHelpUI(){
+    cout << "--------------------COLLEGE PATH--------------------" << endl;
+    cout << "--" << endl;
+}
+
+void processUIChoice(){
+    int choice = 0;
+
+    cin >> choice;
+
+    while(choice != 4){
+        CLEARSCR();
+
+        if(choice == 1){
+            displayTopologicSortUI();
+        } else if(choice == 2){
+            displayCriticalPathUI();
+        } else if(choice == 3){
+            displayHelpUI();
+        } else {
+            displayWrongChoiceUI();
+        }
+
+        getchar();
+        getchar();
+        displayUI();
+        cin >> choice;
+    }
 
 }
 
 void displayUI(){
+    CLEARSCR();
+
     cout << "--------------------COLLEGE PATH--------------------" << endl;
     cout << "-                                                  -" << endl;
     cout << "- 1. Topological Sort (Ordenacao Topologica)       -" << endl;
@@ -27,6 +83,7 @@ void displayUI(){
     cout << "- 4. Exit (Sair)                                   -" << endl;
     cout << "-                                                  -" << endl;
     cout << "----------------------------------------------------" << endl;
+    cout << endl << ">>> ";
 }
 
 void printAllAdj(){
@@ -130,6 +187,10 @@ int main(){
     insertLinksOnGraph(link);
 
     printAllAdj();
+
+    //displayUI();
+    //processUIChoice();
+
     fclose(pF);
 
     return 0;

@@ -28,21 +28,35 @@ Fluxo de matérias do curso de Ciência da Computação da Universidade de Bras�
 
 Todo o ciclo de desenvolvimento deverá conter a implementação, teste e documentação do código.
 
-- Makefile, README e bash dos arquivos
-- Source e headers básicos
-- Colocar estruturas de dados a serem utilizadas no header
 - Webscraper das matérias do CiC Bacharelado no Matrícula Web (courses.txt)
 - Elaborar e colocar os fatores de dificuldade de cada matéria
-- Leitura do arquivo courses.txt na main
-- Inserção dos dados das matérias no grafo
-- Calcular o peso (P=Cr*f) de cada matéria e inserir nas arestas
 - Algoritmo de ordenação topológica
 - Algoritmo de cálculo do caminho crítico
 - Menu com informações no terminal para o usurário escolher as ações do sistema
 
 ### Funcionalidades
 
+<!-- O programa realiza as seguintes funcionalidades a partir do menu principal:
+
+- Opção 1 : Calcula todos os graus dos vértices do grafo e imprime em ordem decrescente estes dados no seguinte formato ``MATRICULA has X friends``, ``X`` representa o número de grau do vértice vinculado aquela matrícula.
+
+- Opção 2 : Calcula o maior clique do grafo e imprime no seguinte formato ``Existem X cliques máximos maximais de tamanho Y em cada clique. \n Clique 1.
+Nome : Z``. Neste programa com a lista fornecida foi possível encontrar 3 cliques máximos com tamanhos iguais a 6, portanto será mostrado todos estes cliques encontrados.
+
+- Opção 3 : Permite sair do programa. -->
+
 ### Fluxo do programa
+
+- Coleta dados do Matrícula Web sobre o fluxo do CiC UnB e persiste as informações úteis para este sistema em um arquivo denominado ``courses.txt``;
+- Lê os seguintes dados de cada matéria do fluxo de CiC da UnB :
+   - Código,
+   - nome,
+   - número de créditos,
+   - fator de dificuldade,
+   - matérias que se disponibilizam após a aprovação na matéria que está sendo processada.
+- Calcula o peso de cada matéria a partir do seguinte cálculo : peso = número de créditos * fator de dificuldade da matéria;
+- Insere os dados de código, nome e peso das matérias nos vértices do grafo;
+- Processa e insere no grafo cada vértice adjacente das matérias do fluxo.
 
 ## Autoria
 

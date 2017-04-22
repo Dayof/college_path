@@ -29,24 +29,32 @@
 using namespace std;
 
 /* ----------- Definition of all functions of the program ----------- */
+void processUIChoice();
 
 /* -- Functions to show data on command terminal -- */
-
-/* -- Functions to create and populate the base graph -- */
+void displayHeaderUI();
+void displayTopologicSortUI();
+void displayCriticalPathUI();
+void displayHelpUI();
+void displayWrongChoiceUI();
+void displayUI();
 void printAllAdj();
 
-void processCodeLink(string, int);
-
+/* -- Functions to create and populate the base graph -- */
+void insertAllOnGraph(string, string, int, float, int);
 void insertLinksOnGraph(vector<string>);
-
+void processCodeLink(string, int);
 float calculateWeight(int, float);
 
-void insertAllOnGraph(string, string, int, float, int);
-
 /* -- Global variables definitions -- */
+
 #define GRAPHSIZE 4
 
-// vector<vector<pair<pair<string, string>,int> > > GRAPH(GRAPHSIZE);
+#if defined POSIX || defined __APPLE__
+  #define CLEARSCR() system("clear")
+#elif defined MSDOS || defined WIN32
+  #define CLEARSCR() system("cls")
+#endif
 
 vector<pair<pair<pair<string, string>, float>, vector<int> > > GRAPH(GRAPHSIZE);
 
