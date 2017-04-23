@@ -11,39 +11,62 @@
 
 #include "course_flow.inl"
 
+void pressToContinue(){
+    cout << endl << "\t\t    Aperte <QUALQUER TECLA> para voltar ao menu.    ";
+    getchar();
+    getchar();
+}
+
 void displayHeaderUI(){
-    cout << "--------------------COLLEGE PATH--------------------" << endl;
-    cout << "- Curso: Ciencia da Computacao (Bacharelado)       -" << endl;
-    cout << "----------------------------------------------------" << endl;
+    cout << "\t\t--------------------COLLEGE PATH--------------------" << endl;
+    cout << "\t\t- Curso: Ciencia da Computacao (Bacharelado)       -" << endl;
+    cout << "\t\t----------------------------------------------------" << endl;
 
-    cout << endl << ">>> DAG: " << endl;
+    cout << endl << "\t\t>>> DAG: " << endl;
 
-    //displayDAG()
+    //displayDAG
 }
 
 void displayTopologicSortUI(){
     displayHeaderUI();
 
-    cout << endl << ">>> Ordenacao Topologica: " << endl;
+    cout << endl << "\t\t>>> Ordenacao Topologica: " << endl;
 
     //displayTopologicSort()
+
+    pressToContinue();
 }
 
 void displayCriticalPathUI(){
     displayHeaderUI();
 
-    cout << endl << ">>> Caminho Critico: " << endl;
+    cout << endl << "\t\t>>> Caminho Critico: " << endl;
 
-    //displayCriticalPAth()
+    //displayCriticalPath()
+    pressToContinue();
 }
 
 void displayWrongChoiceUI(){
-
+    displayUI();
+    cout << "\t\tEscolha invalida, informe um valor de 1 a 4" << endl;
+    cout << "\t\t>>> ";
 }
 
 void displayHelpUI(){
-    cout << "--------------------COLLEGE PATH--------------------" << endl;
-    cout << "--" << endl;
+    cout << "\t\t--------------------COLLEGE PATH--------------------" << endl;
+    cout << "\t\t- Segundo projeto da materia de Teoria e Aplicacao -" << endl;
+    cout << "\t\t- de Grafos (TAG) do semestre de 2017/1.           -" << endl;
+    cout << "\t\t- Feito por Dayanne da Cunha e Renato Nobre        -" << endl;
+    cout << "\t\t-                                                  -" << endl;
+    cout << "\t\t- O trabalho implementa um grafo aciclico dirigido -" << endl;
+    cout << "\t\t- nas diciplinas do curso de ciencia da comutacao  -" << endl;
+    cout << "\t\t- da UnB. Ambas as opcoes 1 e 2 mostram o grafo.   -" << endl;
+    cout << "\t\t- Porem, a opcao 1 mostra seu ordemanento          -" << endl;
+    cout << "\t\t- topologico e a opcao 2 o caminho critico do      -" << endl;
+    cout << "\t\t- curso.                                           -" << endl;
+    cout << "\t\t----------------------------------------------------" << endl;
+
+    pressToContinue();
 }
 
 void processUIChoice(){
@@ -56,17 +79,17 @@ void processUIChoice(){
 
         if(choice == 1){
             displayTopologicSortUI();
+            displayUI();
         } else if(choice == 2){
             displayCriticalPathUI();
+            displayUI();
         } else if(choice == 3){
             displayHelpUI();
+            displayUI();
         } else {
             displayWrongChoiceUI();
         }
 
-        getchar();
-        getchar();
-        displayUI();
         cin >> choice;
     }
 
@@ -75,15 +98,15 @@ void processUIChoice(){
 void displayUI(){
     CLEARSCR();
 
-    cout << "--------------------COLLEGE PATH--------------------" << endl;
-    cout << "-                                                  -" << endl;
-    cout << "- 1. Topological Sort (Ordenacao Topologica)       -" << endl;
-    cout << "- 2. Critical Path (Caminho Critico)               -" << endl;
-    cout << "- 3. Help (Ajuda)                                  -" << endl;
-    cout << "- 4. Exit (Sair)                                   -" << endl;
-    cout << "-                                                  -" << endl;
-    cout << "----------------------------------------------------" << endl;
-    cout << endl << ">>> ";
+    cout << "\t\t--------------------COLLEGE PATH--------------------" << endl;
+    cout << "\t\t-                                                  -" << endl;
+    cout << "\t\t- 1. Ordenacao Topologica                          -" << endl;
+    cout << "\t\t- 2. Caminho Critico                               -" << endl;
+    cout << "\t\t- 3. Ajuda                                         -" << endl;
+    cout << "\t\t- 4. Sair                                          -" << endl;
+    cout << "\t\t-                                                  -" << endl;
+    cout << "\t\t----------------------------------------------------" << endl;
+    cout << endl << "\t\t>>> ";
 }
 
 void printAllAdj(){
@@ -183,8 +206,8 @@ int main(){
 
     printAllAdj();
 
-    //displayUI();
-    //processUIChoice();
+    displayUI();
+    processUIChoice();
 
     fclose(pF);
 
