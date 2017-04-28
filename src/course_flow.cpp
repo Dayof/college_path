@@ -11,6 +11,22 @@
 
 #include "course_flow.inl"
 
+// void topologicSort(){
+//     vector<ssfv> l;
+//     vector<ssfv> s;
+//
+//     ssfv n;
+//
+//     while(!s.empty()){
+//         n = s.back();
+//         s.pop_back();
+//         l.push_back(l);
+//         for(i=0;i< n.second.size();i++){
+//
+//         }
+//     }
+// }
+
 void pressToContinue(){
     cout << endl << "\t\t    Aperte <QUALQUER TECLA> para voltar ao menu.    ";
     getchar();

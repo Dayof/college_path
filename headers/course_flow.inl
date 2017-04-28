@@ -59,7 +59,10 @@ float calculateWeight(int, float);
   #define CLEARSCR() system("cls")
 #endif
 
+#define ss pair<string, string>
+#define ssf pair<ss, float>
+#define ssfv pair <ssf, vector<int> >
 
-vector<pair<pair<pair<string, string>, float>, vector<int> > > GRAPH(GRAPHSIZE);
+vector<ssfv> GRAPH(GRAPHSIZE);
 
 #endif // HEADERS_INL_INCLUDED
