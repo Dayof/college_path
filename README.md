@@ -28,11 +28,8 @@ Fluxo de matérias do curso de Ciência da Computação da Universidade de Bras�
 
 Todo o ciclo de desenvolvimento deverá conter a implementação, teste e documentação do código.
 
-- Webscraper das matérias do CiC Bacharelado no Matrícula Web (courses.txt)
-- Elaborar e colocar os fatores de dificuldade de cada matéria
 - Algoritmo de ordenação topológica
 - Algoritmo de cálculo do caminho crítico
-- Menu com informações no terminal para o usurário escolher as ações do sistema
 
 ### Funcionalidades
 

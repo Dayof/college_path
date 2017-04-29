@@ -38,6 +38,8 @@ void displayCriticalPathUI();
 void displayHelpUI();
 void displayWrongChoiceUI();
 void displayUI();
+void displayDAG();
+void pressToContinue();
 void printAllAdj();
 
 /* -- Functions to create and populate the base graph -- */
@@ -51,7 +53,7 @@ float calculateWeight(int, float);
 
 /* -- Global variables definitions -- */
 
-#define GRAPHSIZE 4
+#define GRAPHSIZE 35
 
 #if defined POSIX || defined __APPLE__
   #define CLEARSCR() system("clear")
