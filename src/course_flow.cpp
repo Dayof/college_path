@@ -12,7 +12,19 @@
 #include "course_flow.inl"
 
 void displayDAG(){
+  displayHeaderUI();
 
+  for(int i = 0; i < GRAPHSIZE; i++){
+      cout << "\t\t- " << GRAPH[i].first.first.second << " : ";
+      if(GRAPH[i].second.size() == 0)
+        cout << "Esta matéria não é dependência de nenhuma após.";
+      else
+        for(int j = 0; j < GRAPH[i].second.size();++j)
+            cout << GRAPH[i].second[j] << " ";
+      cout << endl;
+  }
+
+  pressToContinue();
 }
 
 // void topologicSort(){
@@ -41,10 +53,6 @@ void displayHeaderUI(){
     cout << "\t\t--------------------COLLEGE PATH--------------------" << endl;
     cout << "\t\t- Curso: Ciencia da Computacao (Bacharelado)       -" << endl;
     cout << "\t\t----------------------------------------------------" << endl;
-
-    cout << endl << "\t\t>>> DAG: " << endl;
-
-    //displayDAG
 }
 
 void displayTopologicSortUI(){
@@ -68,7 +76,7 @@ void displayCriticalPathUI(){
 
 void displayWrongChoiceUI(){
     displayUI();
-    cout << "\t\tEscolha invalida, informe um valor de 1 a 4" << endl;
+    cout << "\t\tEscolha invalida, informe um valor de 1 a 5" << endl;
     cout << "\t\t>>> ";
 }
 
@@ -94,7 +102,7 @@ void processUIChoice(){
 
     cin >> choice;
 
-    while(choice != 4){
+    while(choice != 5){
         CLEARSCR();
 
         if(choice == 1){
@@ -104,6 +112,9 @@ void processUIChoice(){
             displayCriticalPathUI();
             displayUI();
         } else if(choice == 3){
+            displayDAG();
+            displayUI();
+        } else if(choice == 4){
             displayHelpUI();
             displayUI();
         } else {
@@ -122,8 +133,9 @@ void displayUI(){
     cout << "\t\t-                                                  -" << endl;
     cout << "\t\t- 1. Ordenacao Topologica                          -" << endl;
     cout << "\t\t- 2. Caminho Critico                               -" << endl;
-    cout << "\t\t- 3. Ajuda                                         -" << endl;
-    cout << "\t\t- 4. Sair                                          -" << endl;
+    cout << "\t\t- 3. DAG                                           -" << endl;
+    cout << "\t\t- 4. Ajuda                                         -" << endl;
+    cout << "\t\t- 5. Sair                                          -" << endl;
     cout << "\t\t-                                                  -" << endl;
     cout << "\t\t----------------------------------------------------" << endl;
     cout << endl << "\t\t>>> ";
@@ -131,9 +143,8 @@ void displayUI(){
 
 void printAllAdj(){
     for(int i = 0; i < GRAPHSIZE; i++){
-        for(int j = 0; j < GRAPH[i].second.size();++j){
+        for(int j = 0; j < GRAPH[i].second.size();++j)
             cout << GRAPH[i].second[j] << " ";
-        }
         cout << endl;
     }
 }
@@ -207,8 +218,6 @@ int main(){
     }
 
     insertLinksOnGraph(link);
-
-    printAllAdj();
 
     displayUI();
     processUIChoice();
