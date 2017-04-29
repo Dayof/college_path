@@ -14,7 +14,7 @@ F = [1.0, 0.5, 0.5, 1.0, 0.5, 1.0, 0.5, 1.0, 0.5, 1.5,
     1.5, 1.5, 0.5, 1.5, 1.5]
 
 def writeOnFile(prs):
-    file_c = open('courses2.txt', 'w')
+    file_c = open('courses.txt', 'w')
     org_pr = ' '.join(str(i) for i in prs)
     ord_refs = {}
 
