@@ -72,12 +72,12 @@ void displayHelpUI(){
     cout << "\t\t--------------------COLLEGE PATH--------------------" << endl;
     cout << "\t\t- Segundo projeto da materia de Teoria e Aplicacao -" << endl;
     cout << "\t\t- de Grafos (TAG) do semestre de 2017/1.           -" << endl;
-    cout << "\t\t- Feito por Dayanne da Cunha e Renato Nobre        -" << endl;
+    cout << "\t\t- Feito por Dayanne Fernandes e Renato Nobre       -" << endl;
     cout << "\t\t-                                                  -" << endl;
     cout << "\t\t- O trabalho implementa um grafo aciclico dirigido -" << endl;
-    cout << "\t\t- nas diciplinas do curso de ciencia da comutacao  -" << endl;
+    cout << "\t\t- das diciplinas do curso de ciencia da computacao -" << endl;
     cout << "\t\t- da UnB. Ambas as opcoes 1 e 2 mostram o grafo.   -" << endl;
-    cout << "\t\t- Porem, a opcao 1 mostra seu ordemanento          -" << endl;
+    cout << "\t\t- Porem, a opcao 1 mostra seu ordenamento          -" << endl;
     cout << "\t\t- topologico e a opcao 2 o caminho critico do      -" << endl;
     cout << "\t\t- curso.                                           -" << endl;
     cout << "\t\t----------------------------------------------------" << endl;
