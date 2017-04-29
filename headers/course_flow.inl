@@ -30,6 +30,7 @@ using namespace std;
 
 /* ----------- Definition of all functions of the program ----------- */
 void processUIChoice();
+void topologicSort();
 
 /* -- Functions to show data on command terminal -- */
 void displayHeaderUI();
@@ -53,7 +54,7 @@ float calculateWeight(int, float);
 
 /* -- Global variables definitions -- */
 
-#define GRAPHSIZE 35
+#define GRAPHSIZE 8
 
 #if defined POSIX || defined __APPLE__
   #define CLEARSCR() system("clear")

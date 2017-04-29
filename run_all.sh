@@ -1,2 +1,2 @@
 sudo make || exit
-./main 
+./main
