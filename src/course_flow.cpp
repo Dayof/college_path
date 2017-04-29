@@ -17,7 +17,7 @@ void displayDAG(){
   for(int i = 0; i < GRAPHSIZE; i++){
       cout << "\t\t" << i << "- " << GRAPH[i].first.first.second << ": ";
       if(GRAPH[i].second.size() == 0)
-        cout << "Esta matéria não possui pré-requisitos.";
+        cout << "Esta matéria não é pré requisito de nenhuma outra.";
       else
         for(int j = 0; j < GRAPH[i].second.size();++j)
             cout << GRAPH[i].second[j] << " ";
@@ -31,7 +31,7 @@ void displayTopologicSort(vector<ssfv> out){
     for(int k = 0; k < out.size(); k++){
         cout << "\t\t" << out[k].first.first.second << " > "<< endl;
     }
-    cout << "\\" << endl;
+    cout << "\t\t\\" << endl;
 }
 
 void topologicSort(){
@@ -126,11 +126,11 @@ void displayHelpUI(){
     cout << "\t\t- Feito por Dayanne Fernandes e Renato Nobre       -" << endl;
     cout << "\t\t-                                                  -" << endl;
     cout << "\t\t- O trabalho implementa um grafo aciclico dirigido -" << endl;
-    cout << "\t\t- das diciplinas do curso de ciencia da computacao -" << endl;
-    cout << "\t\t- da UnB. Ambas as opcoes 1 e 2 mostram o grafo.   -" << endl;
-    cout << "\t\t- Porem, a opcao 1 mostra seu ordenamento          -" << endl;
-    cout << "\t\t- topologico e a opcao 2 o caminho critico do      -" << endl;
-    cout << "\t\t- curso.                                           -" << endl;
+    cout << "\t\t- das diciplinas do curso de Ciência da Computação -" << endl;
+    cout << "\t\t- da UnB. As opcão 1 mostra o ordenamento          -" << endl;
+    cout << "\t\t- topologico das materias, a opcao 2 mosta o       -" << endl;
+    cout << "\t\t- caminho critico do curso, e por fim a opcao 3    -" << endl;
+    cout << "\t\t- mostra o grafo completo                          -" << endl;
     cout << "\t\t----------------------------------------------------" << endl;
 
     pressToContinue();
