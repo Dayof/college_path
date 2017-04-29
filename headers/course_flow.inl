@@ -38,6 +38,8 @@ void displayCriticalPathUI();
 void displayHelpUI();
 void displayWrongChoiceUI();
 void displayUI();
+void displayDAG();
+void pressToContinue();
 void printAllAdj();
 
 /* -- Functions to create and populate the base graph -- */
