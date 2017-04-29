@@ -28,9 +28,8 @@ void displayDAG(){
 }
 
 void displayTopologicSort(vector<ssfv> out){
-    cout << "\t\t";
     for(int k = 0; k < out.size(); k++){
-        cout << out[k].first.first.second << "> ";
+        cout << "\t\t" << out[k].first.first.second << " > "<< endl;
     }
     cout << "\\" << endl;
 }
@@ -39,34 +38,39 @@ void topologicSort(){
     int j, degree, index;
 
     vector<pair<ssfv, int> > auxGraph;
-    vector<pair<ssfv, int> > queue;
+    vector<ssfv> queue;
     vector<ssfv> out;
 
-    pair<ssfv, int> n;
+    ssfv n;
 
-    for(int i=0 ; i<GRAPH.size();i++){
+
+    for(int i = 0; i< GRAPH.size();i++){
         degree = 0;
-        if(GRAPH[i].second.size() == 0){
-            auxGraph.push_back(make_pair(GRAPH[i], degree));
-            queue.push_back(make_pair(GRAPH[i], degree));
-        } else {
-            for(int j = 0; j < GRAPH[i].second.size();j++){
-                degree += 1;
+        for(int j = 0; j < GRAPH.size();j++){
+            for(int k = 0;k<GRAPH[j].second.size();k++){
+                if(GRAPH[j].second[k] == i){
+                    degree += 1;
+                }
             }
-            auxGraph.push_back(make_pair(GRAPH[i], degree));
+        }
+        auxGraph.push_back(make_pair(GRAPH[i], degree));
+    }
+
+    for(int i = 0; i < auxGraph.size(); i++){
+        if(auxGraph[i].second == 0){
+            queue.push_back(auxGraph[i].first);
         }
     }
 
     while(!queue.empty()){
         n = queue.back();
         queue.pop_back();
-        out.push_back(n.first);
-        cout<< n.first.second.size();
-        for(int i=0;i< n.first.second.size();i++){
-            index = n.first.second[i];
+        out.push_back(n);
+        for(int i=0;i< n.second.size();i++){
+            index = n.second[i];
             auxGraph[index].second -= 1;
             if(auxGraph[index].second == 0){
-                queue.push_back(auxGraph[index]);
+                queue.push_back(auxGraph[index].first);
             }
         }
     }
@@ -235,7 +239,7 @@ int main(){
     float f;
     vector<string> link;
 
-    FILE *pF = fopen("courses2.txt", "r");
+    FILE *pF = fopen("courses.txt", "r");
 
     if(pF == NULL) {
         cout << "Error on open the file." << endl;

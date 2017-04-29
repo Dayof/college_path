@@ -54,7 +54,7 @@ float calculateWeight(int, float);
 
 /* -- Global variables definitions -- */
 
-#define GRAPHSIZE 8
+#define GRAPHSIZE 35
 
 #if defined POSIX || defined __APPLE__
   #define CLEARSCR() system("clear")
