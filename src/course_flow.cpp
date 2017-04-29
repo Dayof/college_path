@@ -11,6 +11,10 @@
 
 #include "course_flow.inl"
 
+void displayDAG(){
+
+}
+
 // void topologicSort(){
 //     vector<ssfv> l;
 //     vector<ssfv> s;
@@ -128,21 +132,10 @@ void displayUI(){
 void printAllAdj(){
     for(int i = 0; i < GRAPHSIZE; i++){
         for(int j = 0; j < GRAPH[i].second.size();++j){
-            cout << GRAPH[i].second[j] << endl;
+            cout << GRAPH[i].second[j] << " ";
         }
+        cout << endl;
     }
-}
-
-int findIndexFromCode(string code){
-    int result = -1;
-
-    for(int i = 0; i < GRAPHSIZE; i++){
-        if(code == GRAPH[i].first.first.first){
-            result = i;
-            break;
-        }
-    }
-    return result;
 }
 
 void processCodeLink(string links, int origin_index){
@@ -154,17 +147,13 @@ void processCodeLink(string links, int origin_index){
     while((found = links.find_first_of(' ', pos)) != (string::npos)){
         token = links.substr(pos, found - pos);
         pos = found + 1;
-        index = findIndexFromCode(token);
-        if(index != -1){
-            adj.push_back(index);
-        }
+        if(stoi(token) != -1)
+            adj.push_back(stoi(token));
     }
     token = links.substr(pos);
 
-    index = findIndexFromCode(token);
-    if(index != -1){
-        adj.push_back(index);
-    }
+    if(stoi(token) != -1)
+        adj.push_back(stoi(token));
 
     GRAPH[origin_index].second = adj;
 }
@@ -172,7 +161,6 @@ void processCodeLink(string links, int origin_index){
 void insertLinksOnGraph(vector<string> links){
     for(int i = 0; i < GRAPHSIZE; ++i)
         processCodeLink(links[i], i);
-
 }
 
 float calculateWeight(int cred, float f){
