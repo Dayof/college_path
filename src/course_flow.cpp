@@ -161,7 +161,7 @@ void displayTopologicSortUI(){
 
     cout << endl << "\t>>> Ordenacao Topologica: " << endl;
 
-    topologicSort();
+    displayTopologicSort();
 
     pressToContinue();
 }
@@ -320,6 +320,8 @@ int main(){
     }
 
     insertLinksOnGraph(link);
+
+    topologicSort();
 
     displayUI();
     processUIChoice();
