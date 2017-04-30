@@ -24,13 +24,6 @@ Este programa foi testado no sistema operacional ``macOS Sierra``, versão ``10.
 
 Fluxo de matérias do curso de Ciência da Computação da Universidade de Brasília.
 
-### TODO
-
-Todo o ciclo de desenvolvimento deverá conter a implementação, teste e documentação do código.
-
-- Algoritmo de ordenação topológica
-- Algoritmo de cálculo do caminho crítico
-
 ### Funcionalidades
 
 <!-- O programa realiza as seguintes funcionalidades a partir do menu principal:

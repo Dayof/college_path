@@ -11,13 +11,31 @@
 
 #include "course_flow.inl"
 
+void displayProgram(){
+  displayHeaderUI();
+
+  cout << endl;
+  cout << '\n' << "\t- CODIGO | MATERIA | FATOR | MATERIAS DEPENDENTES \n" << endl;
+
+  for(int i = 0; i < GRAPHSIZE; i++){
+      cout << "\t- " << GRAPH[i].first.first.first << " | " << GRAPH[i].first.first.second << " | " << GRAPH[i].first.second << " | ";
+      for(int j = 0; j < GRAPH[i].second.size();++j)
+          cout << GRAPH[i].second[j] << " ";
+      cout << endl;
+  }
+
+  pressToContinue();
+}
+
 void displayDAG(){
   displayHeaderUI();
 
+  cout << '\n' << "\t- ÍNDICE : MATÉRIA : MATÉRIAS QUE DEPENDEM DESTA \n" << endl;
+
   for(int i = 0; i < GRAPHSIZE; i++){
-      cout << "\t\t" << i << "- " << GRAPH[i].first.first.second << ": ";
+      cout << "\t- " << i << " : " << GRAPH[i].first.first.second << ": ";
       if(GRAPH[i].second.size() == 0)
-        cout << "Esta matéria não é pré requisito de nenhuma outra.";
+        cout << "NENHUMA";
       else
         for(int j = 0; j < GRAPH[i].second.size();++j)
             cout << GRAPH[i].second[j] << " ";
@@ -27,40 +45,88 @@ void displayDAG(){
   pressToContinue();
 }
 
-void displayTopologicSort(vector<ssfv> out){
-    for(int k = 0; k < out.size(); k++){
-        cout << "\t\t" << out[k].first.first.second << " > "<< endl;
+void displayCriticalPath(){
+  cout << endl;
+  for(int i = 0; i < CPM.first.size(); ++i)
+    cout << "\t- " << GRAPH[CPM.first[i]].first.first.second << endl;
+
+  cout << "\t- Total weight: " << CPM.second << endl;
+}
+
+void displayTopologicSort(){
+  cout << endl;
+    for(int k = 0; k < ORD_GRAPH.size(); k++)
+        cout << "\t- " << ORD_GRAPH[k].first.first.second << endl;
+    cout << "\t" << endl;
+}
+
+int findIndexFromCod(string cod){
+  for(int i = 0; i < GRAPHSIZE; ++i)
+    if(cod == GRAPH[i].first.first.first)
+      return i;
+
+  return -1;
+}
+
+pair<vector<int>, int> calculateCPM(int origin_index){
+  pair<vector<int>, int> last_cpm;
+  vector<int> dist(GRAPHSIZE), path;
+  int u, largest_path = NINFINITY, k = 0;
+
+  for(int i = 0; i < dist.size(); ++i)
+    dist[i] = NINFINITY;
+
+  dist[origin_index] = 0;
+  path.push_back(origin_index);
+
+  while(k < ORD_GRAPH.size())
+  {
+    u = findIndexFromCod(ORD_GRAPH[k].first.first.first);
+    k++;
+
+    if(u == -1){
+      cout << "Error on CPM" << endl;
+      break;
     }
-    cout << "\t\t\\" << endl;
+
+    if(dist[u] != NINFINITY){
+      for(int j = 0; j < GRAPH[u].second.size(); j++){
+        if(dist[GRAPH[u].second[j]] < dist[u] + GRAPH[GRAPH[u].second[j]].first.second){
+          dist[GRAPH[u].second[j]] = dist[u] + GRAPH[GRAPH[u].second[j]].first.second;
+          if(largest_path < dist[GRAPH[u].second[j]])
+            largest_path = dist[GRAPH[u].second[j]];
+          path.push_back(GRAPH[u].second[j]);
+        }
+      }
+    }
+  }
+
+  last_cpm = make_pair(path, largest_path);
+
+  return last_cpm;
 }
 
 void topologicSort(){
-    int j, degree, index;
-
+    int j, degree, index, last_path, largest_path_index, largest_path = NINFINITY;
     vector<pair<ssfv, int> > auxGraph;
     vector<ssfv> queue;
     vector<ssfv> out;
-
+    pair<vector<int>, int> largest_path_pair, last_largest_path_pair;
     ssfv n;
-
 
     for(int i = 0; i< GRAPH.size();i++){
         degree = 0;
-        for(int j = 0; j < GRAPH.size();j++){
-            for(int k = 0;k<GRAPH[j].second.size();k++){
-                if(GRAPH[j].second[k] == i){
+        for(int j = 0; j < GRAPH.size();j++)
+            for(int k = 0;k<GRAPH[j].second.size();k++)
+                if(GRAPH[j].second[k] == i)
                     degree += 1;
-                }
-            }
-        }
+
         auxGraph.push_back(make_pair(GRAPH[i], degree));
     }
 
-    for(int i = 0; i < auxGraph.size(); i++){
-        if(auxGraph[i].second == 0){
+    for(int i = 0; i < auxGraph.size(); i++)
+        if(auxGraph[i].second == 0)
             queue.push_back(auxGraph[i].first);
-        }
-    }
 
     while(!queue.empty()){
         n = queue.back();
@@ -69,37 +135,49 @@ void topologicSort(){
         for(int i=0;i< n.second.size();i++){
             index = n.second[i];
             auxGraph[index].second -= 1;
-            if(auxGraph[index].second == 0){
+            if(auxGraph[index].second == 0)
                 queue.push_back(auxGraph[index].first);
-            }
         }
     }
 
     auxGraph.clear();
     queue.clear();
 
-    displayTopologicSort(out);
+    ORD_GRAPH = out;
 
+    for(int i = 0; i < GRAPHSIZE; ++i)
+    {
+      largest_path_pair = calculateCPM(i);
+      if(largest_path_pair.second > largest_path && largest_path_pair.second > NINFINITY)
+      {
+        last_largest_path_pair = largest_path_pair;
+        largest_path = largest_path_pair.second;
+      }
+    }
+
+    CPM = last_largest_path_pair;
+
+    displayTopologicSort();
 }
 
 void pressToContinue(){
-    cout << endl << "\t\t    Aperte <QUALQUER TECLA> para voltar ao menu.    ";
+    cout << endl << "\t    Aperte <QUALQUER TECLA> para voltar ao menu.    ";
     getchar();
     getchar();
 }
 
 void displayHeaderUI(){
-    cout << "\t\t--------------------COLLEGE PATH--------------------" << endl;
-    cout << "\t\t- Curso: Ciencia da Computacao (Bacharelado)       -" << endl;
-    cout << "\t\t----------------------------------------------------" << endl;
+    cout << "\t------------------------COLLEGE PATH------------------------" << endl;
+    cout << "\t- Curso: Ciencia da Computacao (Bacharelado)               -" << endl;
+    cout << "\t------------------------------------------------------------" << endl;
 }
 
 void displayTopologicSortUI(){
     displayHeaderUI();
 
-    cout << endl << "\t\t>>> Ordenacao Topologica: " << endl;
+    cout << endl << "\t>>> Ordenacao Topologica: " << endl;
 
-    topologicSort();
+    displayTopologicSort();
 
     pressToContinue();
 }
@@ -107,31 +185,31 @@ void displayTopologicSortUI(){
 void displayCriticalPathUI(){
     displayHeaderUI();
 
-    cout << endl << "\t\t>>> Caminho Critico: " << endl;
+    cout << endl << "\t>>> Caminho Critico: " << endl;
 
-    //displayCriticalPath()
+    displayCriticalPath();
     pressToContinue();
 }
 
 void displayWrongChoiceUI(){
     displayUI();
-    cout << "\t\tEscolha invalida, informe um valor de 1 a 5" << endl;
-    cout << "\t\t>>> ";
+    cout << "\tEscolha invalida, informe um valor de 1 a 5" << endl;
+    cout << "\t>>> ";
 }
 
 void displayHelpUI(){
-    cout << "\t\t--------------------COLLEGE PATH--------------------" << endl;
-    cout << "\t\t- Segundo projeto da materia de Teoria e Aplicacao -" << endl;
-    cout << "\t\t- de Grafos (TAG) do semestre de 2017/1.           -" << endl;
-    cout << "\t\t- Feito por Dayanne Fernandes e Renato Nobre       -" << endl;
-    cout << "\t\t-                                                  -" << endl;
-    cout << "\t\t- O trabalho implementa um grafo aciclico dirigido -" << endl;
-    cout << "\t\t- das diciplinas do curso de Ciência da Computação -" << endl;
-    cout << "\t\t- da UnB. As opcão 1 mostra o ordenamento          -" << endl;
-    cout << "\t\t- topologico das materias, a opcao 2 mosta o       -" << endl;
-    cout << "\t\t- caminho critico do curso, e por fim a opcao 3    -" << endl;
-    cout << "\t\t- mostra o grafo completo                          -" << endl;
-    cout << "\t\t----------------------------------------------------" << endl;
+    cout << "\t------------------------COLLEGE PATH------------------------" << endl;
+    cout << "\t- Segundo projeto da materia de Teoria e Aplicacao         -" << endl;
+    cout << "\t- de Grafos (TAG) do semestre de 2017/1.                   -" << endl;
+    cout << "\t- Feito por Dayanne Fernandes e Renato Nobre               -" << endl;
+    cout << "\t-                                                          -" << endl;
+    cout << "\t- O trabalho implementa um grafo aciclico dirigido         -" << endl;
+    cout << "\t- das diciplinas do curso de Ciência da Computação         -" << endl;
+    cout << "\t- da UnB. As opcão 1 mostra o ordenamento                  -" << endl;
+    cout << "\t- topologico das materias, a opcao 2 mosta o               -" << endl;
+    cout << "\t- caminho critico do curso, e por fim a opcao 3            -" << endl;
+    cout << "\t- mostra o grafo completo                                  -" << endl;
+    cout << "\t------------------------------------------------------------" << endl;
 
     pressToContinue();
 }
@@ -141,7 +219,7 @@ void processUIChoice(){
 
     cin >> choice;
 
-    while(choice != 5){
+    while(choice != 6){
         CLEARSCR();
 
         if(choice == 1){
@@ -154,6 +232,9 @@ void processUIChoice(){
             displayDAG();
             displayUI();
         } else if(choice == 4){
+            displayProgram();
+            displayUI();
+        } else if(choice == 5){
             displayHelpUI();
             displayUI();
         } else {
@@ -168,16 +249,17 @@ void processUIChoice(){
 void displayUI(){
     CLEARSCR();
 
-    cout << "\t\t--------------------COLLEGE PATH--------------------" << endl;
-    cout << "\t\t-                                                  -" << endl;
-    cout << "\t\t- 1. Ordenacao Topologica                          -" << endl;
-    cout << "\t\t- 2. Caminho Critico                               -" << endl;
-    cout << "\t\t- 3. DAG                                           -" << endl;
-    cout << "\t\t- 4. Ajuda                                         -" << endl;
-    cout << "\t\t- 5. Sair                                          -" << endl;
-    cout << "\t\t-                                                  -" << endl;
-    cout << "\t\t----------------------------------------------------" << endl;
-    cout << endl << "\t\t>>> ";
+    cout << "\t------------------------COLLEGE PATH------------------------" << endl;
+    cout << "\t-                                                          -" << endl;
+    cout << "\t- 1. Ordenacao Topologica                                  -" << endl;
+    cout << "\t- 2. Caminho Critico                                       -" << endl;
+    cout << "\t- 3. DAG                                                   -" << endl;
+    cout << "\t- 4. Curso                                                 -" << endl;
+    cout << "\t- 5. Ajuda                                                 -" << endl;
+    cout << "\t- 6. Sair                                                  -" << endl;
+    cout << "\t-                                                          -" << endl;
+    cout << "\t------------------------------------------------------------" << endl;
+    cout << endl << "\t>>> ";
 }
 
 void printAllAdj(){
@@ -197,11 +279,12 @@ void processCodeLink(string links, int origin_index){
     while((found = links.find_first_of(' ', pos)) != (string::npos)){
         token = links.substr(pos, found - pos);
         pos = found + 1;
+        cout << token << endl;
         if(stoi(token) != -1)
             adj.push_back(stoi(token));
     }
     token = links.substr(pos);
-
+      cout << token << endl;
     if(stoi(token) != -1)
         adj.push_back(stoi(token));
 
@@ -214,7 +297,7 @@ void insertLinksOnGraph(vector<string> links){
 }
 
 float calculateWeight(int cred, float f){
-    return cred*f;
+    return (cred*f);
 }
 
 void insertAllOnGraph(string cod, string name, int cred, float f, int i){
@@ -257,6 +340,8 @@ int main(){
     }
 
     insertLinksOnGraph(link);
+
+    topologicSort();
 
     displayUI();
     processUIChoice();
