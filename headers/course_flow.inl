@@ -55,7 +55,7 @@ float calculateWeight(int, float);
 
 /* -- Global variables definitions -- */
 
-#define GRAPHSIZE 35
+#define GRAPHSIZE 51
 #define NINFINITY -999999
 #define INFINITY 999999
 
