@@ -31,10 +31,14 @@ using namespace std;
 /* ----------- Definition of all functions of the program ----------- */
 void processUIChoice();
 void topologicSort();
+int findIndexFromCod(string);
+pair<vector<int>, int> calculateCPM(int);
 
 /* -- Functions to show data on command terminal -- */
 void displayHeaderUI();
+void displayTopologicSort();
 void displayTopologicSortUI();
+void displayCriticalPath();
 void displayCriticalPathUI();
 void displayHelpUI();
 void displayWrongChoiceUI();
@@ -42,9 +46,6 @@ void displayUI();
 void displayDAG();
 void pressToContinue();
 void printAllAdj();
-
-/* -- Functions to create and populate the base graph -- */
-
 
 /* -- Functions to create and populate the base graph -- */
 void insertAllOnGraph(string, string, int, float, int);
@@ -55,6 +56,8 @@ float calculateWeight(int, float);
 /* -- Global variables definitions -- */
 
 #define GRAPHSIZE 35
+#define NINFINITY -999999
+#define INFINITY 999999
 
 #if defined POSIX || defined __APPLE__
   #define CLEARSCR() system("clear")
@@ -66,6 +69,7 @@ float calculateWeight(int, float);
 #define ssf pair<ss, float>
 #define ssfv pair <ssf, vector<int> >
 
-vector<ssfv> GRAPH(GRAPHSIZE);
+vector<ssfv> GRAPH(GRAPHSIZE), ORD_GRAPH(GRAPHSIZE);
+pair<vector<int>, int> CPM;
 
 #endif // HEADERS_INL_INCLUDED

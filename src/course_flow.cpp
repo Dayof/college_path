@@ -15,7 +15,7 @@ void displayDAG(){
   displayHeaderUI();
 
   for(int i = 0; i < GRAPHSIZE; i++){
-      cout << "\t\t" << i << "- " << GRAPH[i].first.first.second << ": ";
+      cout << "\t\t" << i << " - " << GRAPH[i].first.first.second << ": ";
       if(GRAPH[i].second.size() == 0)
         cout << "Esta matéria não é pré requisito de nenhuma outra.";
       else
@@ -27,40 +27,99 @@ void displayDAG(){
   pressToContinue();
 }
 
-void displayTopologicSort(vector<ssfv> out){
-    for(int k = 0; k < out.size(); k++){
-        cout << "\t\t" << out[k].first.first.second << " > "<< endl;
+void displayCriticalPath(){
+  for(int i = 0; i < CPM.first.size(); ++i)
+    cout << "\t\t- " << GRAPH[CPM.first[i]].first.first.second << endl;
+
+  cout << "\t\t- Total weight: " << CPM.second << endl;
+}
+
+void displayTopologicSort(){
+    for(int k = 0; k < ORD_GRAPH.size(); k++)
+        cout << "\t\t" << ORD_GRAPH[k].first.first.second << " > "<< endl;
+    cout << "\t\t" << endl;
+}
+
+int findIndexFromCod(string cod){
+  for(int i = 0; i < GRAPHSIZE; ++i)
+    if(cod == GRAPH[i].first.first.first)
+      return i;
+
+  return -1;
+}
+
+pair<vector<int>, int> calculateCPM(int origin_index){
+  pair<vector<int>, int> last_cpm;
+  vector<int> dist(GRAPHSIZE), path;
+  int u, largest_path = NINFINITY, k = 0;
+
+  for(int i = 0; i < dist.size(); ++i)
+    dist[i] = NINFINITY;
+
+  dist[origin_index] = 0;
+  path.push_back(origin_index);
+
+  // cout << "ORIGIN VERTEX : " << GRAPH[origin_index].first.first.second << endl;
+
+  while(k < ORD_GRAPH.size())
+  {
+    u = findIndexFromCod(ORD_GRAPH[k].first.first.first);
+    k++;
+
+    if(u == -1){
+      cout << "Error on CPM" << endl;
+      break;
     }
-    cout << "\t\t\\" << endl;
+
+    if(dist[u] != NINFINITY){
+      for(int j = 0; j < GRAPH[u].second.size(); j++){
+        if(dist[GRAPH[u].second[j]] < dist[u] + GRAPH[GRAPH[u].second[j]].first.second){
+          dist[GRAPH[u].second[j]] = dist[u] + GRAPH[GRAPH[u].second[j]].first.second;
+          if(largest_path < dist[GRAPH[u].second[j]])
+            largest_path = dist[GRAPH[u].second[j]];
+          // cout << dist[GRAPH[u].second[j]] << endl;
+          path.push_back(GRAPH[u].second[j]);
+        }
+      }
+    }
+  }
+
+  // for(int i = 0; i < dist.size(); ++i)
+  //   (dist[i] == NINFINITY) ? cout << "NINFINITY " : cout << dist[i] << " ";
+  // cout << endl;
+
+  // for(int i = 0; i < path.size(); ++i)
+  //   cout << GRAPH[path[i]].first.first.second << " | w: " << GRAPH[path[i]].first.second << " -> ";
+  // cout << endl;
+  //
+  // cout << "Last Path: " << largest_path << endl;
+
+  last_cpm = make_pair(path, largest_path);
+
+  return last_cpm;
 }
 
 void topologicSort(){
-    int j, degree, index;
-
+    int j, degree, index, last_path, largest_path_index, largest_path = NINFINITY;
     vector<pair<ssfv, int> > auxGraph;
     vector<ssfv> queue;
     vector<ssfv> out;
-
+    pair<vector<int>, int> largest_path_pair, last_largest_path_pair;
     ssfv n;
-
 
     for(int i = 0; i< GRAPH.size();i++){
         degree = 0;
-        for(int j = 0; j < GRAPH.size();j++){
-            for(int k = 0;k<GRAPH[j].second.size();k++){
-                if(GRAPH[j].second[k] == i){
+        for(int j = 0; j < GRAPH.size();j++)
+            for(int k = 0;k<GRAPH[j].second.size();k++)
+                if(GRAPH[j].second[k] == i)
                     degree += 1;
-                }
-            }
-        }
+
         auxGraph.push_back(make_pair(GRAPH[i], degree));
     }
 
-    for(int i = 0; i < auxGraph.size(); i++){
-        if(auxGraph[i].second == 0){
+    for(int i = 0; i < auxGraph.size(); i++)
+        if(auxGraph[i].second == 0)
             queue.push_back(auxGraph[i].first);
-        }
-    }
 
     while(!queue.empty()){
         n = queue.back();
@@ -69,17 +128,31 @@ void topologicSort(){
         for(int i=0;i< n.second.size();i++){
             index = n.second[i];
             auxGraph[index].second -= 1;
-            if(auxGraph[index].second == 0){
+            if(auxGraph[index].second == 0)
                 queue.push_back(auxGraph[index].first);
-            }
         }
     }
 
     auxGraph.clear();
     queue.clear();
 
-    displayTopologicSort(out);
+    ORD_GRAPH = out;
 
+    for(int i = 0; i < GRAPHSIZE; ++i)
+    {
+      largest_path_pair = calculateCPM(i);
+      if(largest_path_pair.second > largest_path && largest_path_pair.second > NINFINITY)
+      {
+        last_largest_path_pair = largest_path_pair;
+        largest_path = largest_path_pair.second;
+      }
+    }
+
+    CPM = last_largest_path_pair;
+
+    // cout << "Largest Path begin from index : " << GRAPH[CPM.first[0]].first.first.second << " with weight : " << CPM.second << endl;
+
+    displayTopologicSort();
 }
 
 void pressToContinue(){
@@ -109,7 +182,7 @@ void displayCriticalPathUI(){
 
     cout << endl << "\t\t>>> Caminho Critico: " << endl;
 
-    //displayCriticalPath()
+    displayCriticalPath();
     pressToContinue();
 }
 
@@ -214,7 +287,7 @@ void insertLinksOnGraph(vector<string> links){
 }
 
 float calculateWeight(int cred, float f){
-    return cred*f;
+    return (cred*f);
 }
 
 void insertAllOnGraph(string cod, string name, int cred, float f, int i){
