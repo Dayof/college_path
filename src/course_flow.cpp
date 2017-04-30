@@ -182,6 +182,7 @@ void displayTopologicSortUI(){
     pressToContinue();
 }
 
+
 void displayCriticalPathUI(){
     displayHeaderUI();
 
@@ -191,12 +192,26 @@ void displayCriticalPathUI(){
     pressToContinue();
 }
 
+
+/**
+ * displayWrongChoiceUI function. Display a message when the
+ * user inputs a not valid choice for the processUIChoice.
+ *
+ * @return void
+ */
 void displayWrongChoiceUI(){
     displayUI();
     cout << "\tEscolha invalida, informe um valor de 1 a 5" << endl;
     cout << "\t>>> ";
 }
 
+
+/**
+ * displayHelpUI function. Display the help screen.
+ *
+ *
+ * @return void
+ */
 void displayHelpUI(){
     cout << "\t------------------------COLLEGE PATH------------------------" << endl;
     cout << "\t- Segundo projeto da materia de Teoria e Aplicacao         -" << endl;
@@ -214,6 +229,13 @@ void displayHelpUI(){
     pressToContinue();
 }
 
+
+/**
+ * processUIChoice function. Process what is the user choice
+ * of the main user interface and call the respective method.
+ *
+ * @return void
+ */
 void processUIChoice(){
     int choice = 0;
 
@@ -246,6 +268,12 @@ void processUIChoice(){
 
 }
 
+/**
+ * displayUI function. Display the main user interface
+ * of the project
+ *
+ * @return void
+ */
 void displayUI(){
     CLEARSCR();
 
@@ -262,6 +290,12 @@ void displayUI(){
     cout << endl << "\t>>> ";
 }
 
+
+/**
+ * printAllAdj function. Print edges list of the graph
+ *
+ * @return void
+ */
 void printAllAdj(){
     for(int i = 0; i < GRAPHSIZE; i++){
         for(int j = 0; j < GRAPH[i].second.size();++j)
@@ -270,6 +304,13 @@ void printAllAdj(){
     }
 }
 
+
+/**
+ * processCodeLink function.
+ *
+ *
+ * @return void
+ */
 void processCodeLink(string links, int origin_index){
     string token;
     size_t pos = 0, found ;
@@ -291,15 +332,35 @@ void processCodeLink(string links, int origin_index){
     GRAPH[origin_index].second = adj;
 }
 
+
+/**
+ * insertLinksOnGraph function.
+ *
+ *
+ * @return void
+ */
 void insertLinksOnGraph(vector<string> links){
     for(int i = 0; i < GRAPHSIZE; ++i)
         processCodeLink(links[i], i);
 }
 
+/**
+ * calculateWeight function. Calculate the weight of an edge
+ * given the credits and the dificulty of a course.
+ *
+ * @return float value that represents the edge weight
+ */
 float calculateWeight(int cred, float f){
     return (cred*f);
 }
 
+/**
+ * insertAllOnGraph function. Insert inner node, node, and edges into the
+ * Graph data structure.
+ *
+ *
+ * @return void
+ */
 void insertAllOnGraph(string cod, string name, int cred, float f, int i){
     pair<string, string> inner_node = make_pair(cod, name);
     pair<pair<string, string>, float> node = make_pair(inner_node, calculateWeight(cred, f));
