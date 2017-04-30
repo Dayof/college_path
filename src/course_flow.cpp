@@ -11,6 +11,22 @@
 
 #include "course_flow.inl"
 
+void displayProgram(){
+  displayHeaderUI();
+
+  cout << endl;
+  cout << '\n' << "\t- CODIGO | MATERIA | FATOR | MATERIAS DEPENDENTES \n" << endl;
+
+  for(int i = 0; i < GRAPHSIZE; i++){
+      cout << "\t- " << GRAPH[i].first.first.first << " | " << GRAPH[i].first.first.second << " | " << GRAPH[i].first.second << " | ";
+      for(int j = 0; j < GRAPH[i].second.size();++j)
+          cout << GRAPH[i].second[j] << " ";
+      cout << endl;
+  }
+
+  pressToContinue();
+}
+
 void displayDAG(){
   displayHeaderUI();
 
@@ -203,7 +219,7 @@ void processUIChoice(){
 
     cin >> choice;
 
-    while(choice != 5){
+    while(choice != 6){
         CLEARSCR();
 
         if(choice == 1){
@@ -216,6 +232,9 @@ void processUIChoice(){
             displayDAG();
             displayUI();
         } else if(choice == 4){
+            displayProgram();
+            displayUI();
+        } else if(choice == 5){
             displayHelpUI();
             displayUI();
         } else {
@@ -235,8 +254,9 @@ void displayUI(){
     cout << "\t- 1. Ordenacao Topologica                                  -" << endl;
     cout << "\t- 2. Caminho Critico                                       -" << endl;
     cout << "\t- 3. DAG                                                   -" << endl;
-    cout << "\t- 4. Ajuda                                                 -" << endl;
-    cout << "\t- 5. Sair                                                  -" << endl;
+    cout << "\t- 4. Curso                                                 -" << endl;
+    cout << "\t- 5. Ajuda                                                 -" << endl;
+    cout << "\t- 6. Sair                                                  -" << endl;
     cout << "\t-                                                          -" << endl;
     cout << "\t------------------------------------------------------------" << endl;
     cout << endl << "\t>>> ";

@@ -44,6 +44,7 @@ void displayHelpUI();
 void displayWrongChoiceUI();
 void displayUI();
 void displayDAG();
+void displayProgram();
 void pressToContinue();
 void printAllAdj();
 
