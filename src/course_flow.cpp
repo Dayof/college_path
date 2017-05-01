@@ -11,11 +11,15 @@
 
 #include "course_flow.inl"
 
+/**
+ * Displays the whole university program.
+ *
+ * @return void
+ */
 void displayProgram(){
   displayHeaderUI();
 
-  cout << endl;
-  cout << '\n' << "\t- CODIGO | MATERIA | FATOR | MATERIAS DEPENDENTES \n" << endl;
+  cout << endl << endl << "\t- CODIGO | MATERIA | FATOR | MATERIAS DEPENDENTES \n" << endl;
 
   for(int i = 0; i < GRAPHSIZE; i++){
       cout << "\t- " << GRAPH[i].first.first.first << " | " << GRAPH[i].first.first.second << " | " << GRAPH[i].first.second << " | ";
@@ -27,6 +31,11 @@ void displayProgram(){
   pressToContinue();
 }
 
+/**
+ * Displays the directed acyclic graph of the university program.
+ *
+ * @return void
+ */
 void displayDAG(){
   displayHeaderUI();
 
@@ -45,6 +54,11 @@ void displayDAG(){
   pressToContinue();
 }
 
+/**
+ * Displays the critical path found on the graph.
+ *
+ * @return void
+ */
 void displayCriticalPath(){
   cout << endl;
   for(int i = 0; i < CPM.first.size(); ++i)
@@ -53,6 +67,11 @@ void displayCriticalPath(){
   cout << "\t- Total weight: " << CPM.second << endl;
 }
 
+/**
+ * Displays the topological sort found on the graph.
+ *
+ * @return void
+ */
 void displayTopologicSort(){
   cout << endl;
     for(int k = 0; k < ORD_GRAPH.size(); k++)
@@ -60,6 +79,13 @@ void displayTopologicSort(){
     cout << "\t" << endl;
 }
 
+/**
+ * Calculates the critical path of the graph.
+ *
+ * @param cod string that represent the id of a course
+ *
+ * @return integer that represent the vertex index of the if of the parameter
+ */
 int findIndexFromCod(string cod){
   for(int i = 0; i < GRAPHSIZE; ++i)
     if(cod == GRAPH[i].first.first.first)
@@ -68,6 +94,15 @@ int findIndexFromCod(string cod){
   return -1;
 }
 
+/**
+ * Calculates the critical path of the graph.
+ *
+ * @param origin_index integer that represent the index of the vertex that's
+ *                     being analised, runs all the path from this index
+ *
+ * @return a pair of vector of integers and a integer represents the abstract
+ *          structure of the critical path of the graph
+ */
 pair<vector<int>, int> calculateCPM(int origin_index){
   pair<vector<int>, int> last_cpm;
   vector<int> dist(GRAPHSIZE), path;
@@ -106,6 +141,13 @@ pair<vector<int>, int> calculateCPM(int origin_index){
   return last_cpm;
 }
 
+/**
+ * Function responsable to do the topological sort on the graph.
+ *  Also, call the CPM function to calculate the critical path of the ordered
+ *  graph.
+ *
+ * @return void
+ */
 void topologicSort(){
     int j, degree, index, last_path, largest_path_index, largest_path = NINFINITY;
     vector<pair<ssfv, int> > auxGraph;
@@ -160,18 +202,35 @@ void topologicSort(){
     displayTopologicSort();
 }
 
+/**
+ * Information message to guide the user to press any key to continue using the
+ *  system.
+ *
+ * @return void
+ */
 void pressToContinue(){
     cout << endl << "\t    Aperte <QUALQUER TECLA> para voltar ao menu.    ";
     getchar();
     getchar();
 }
 
+/**
+ * Displays the header with the name of the system and the university program
+ *  name.
+ *
+ * @return void
+ */
 void displayHeaderUI(){
     cout << "\t------------------------COLLEGE PATH------------------------" << endl;
     cout << "\t- Curso: Ciencia da Computacao (Bacharelado)               -" << endl;
     cout << "\t------------------------------------------------------------" << endl;
 }
 
+/**
+ * Displays the menu of topologial sort, show the graph ordered.
+ *
+ * @return void
+ */
 void displayTopologicSortUI(){
     displayHeaderUI();
 
@@ -182,7 +241,11 @@ void displayTopologicSortUI(){
     pressToContinue();
 }
 
-
+/**
+ * Displays the menu of critical path method, show the CPM of the graph.
+ *
+ * @return void
+ */
 void displayCriticalPathUI(){
     displayHeaderUI();
 
@@ -194,7 +257,7 @@ void displayCriticalPathUI(){
 
 
 /**
- * Display a message when the user inputs a not valid choice for the
+ * Displays a message when the user inputs a not valid choice for the
  *  processUIChoice.
  *
  * @return void
@@ -207,7 +270,7 @@ void displayWrongChoiceUI(){
 
 
 /**
- * Display the help screen.
+ * Displays the help screen.
  *
  * @return void
  */
@@ -247,178 +310,4 @@ void processUIChoice(){
             displayTopologicSortUI();
             displayUI();
         } else if(choice == 2){
-            displayCriticalPathUI();
-            displayUI();
-        } else if(choice == 3){
-            displayDAG();
-            displayUI();
-        } else if(choice == 4){
-            displayProgram();
-            displayUI();
-        } else if(choice == 5){
-            displayHelpUI();
-            displayUI();
-        } else {
-            displayWrongChoiceUI();
-        }
-
-        cin >> choice;
-    }
-
-}
-
-/**
- * Display the main user interface of the project.
- *
- * @return void
- */
-void displayUI(){
-    CLEARSCR();
-
-    cout << "\t------------------------COLLEGE PATH------------------------" << endl;
-    cout << "\t-                                                          -" << endl;
-    cout << "\t- 1. Ordenacao Topologica                                  -" << endl;
-    cout << "\t- 2. Caminho Critico                                       -" << endl;
-    cout << "\t- 3. DAG                                                   -" << endl;
-    cout << "\t- 4. Curso                                                 -" << endl;
-    cout << "\t- 5. Ajuda                                                 -" << endl;
-    cout << "\t- 6. Sair                                                  -" << endl;
-    cout << "\t-                                                          -" << endl;
-    cout << "\t------------------------------------------------------------" << endl;
-    cout << endl << "\t>>> ";
-}
-
-
-/**
- * Print all the edges of all the vertex of the graph.
- *
- * @return void
- */
-void printAllAdj(){
-    for(int i = 0; i < GRAPHSIZE; i++){
-        for(int j = 0; j < GRAPH[i].second.size();++j)
-            cout << GRAPH[i].second[j] << " ";
-        cout << endl;
-    }
-}
-
-
-/**
- * Process a string of links to become a vector of indexes of a vertex.
- *
- * @param links vector of string that represent all the links of a vertex
- *              on the graph
- * @param origin_index integer that represent the index of the vertex that
- *                     contain these links
- *
- * @return void
- */
-void processCodeLink(string links, int origin_index){
-    string token;
-    size_t pos = 0, found ;
-    vector<int> adj;
-    int index;
-
-    while((found = links.find_first_of(' ', pos)) != (string::npos)){
-        token = links.substr(pos, found - pos);
-        pos = found + 1;
-        cout << token << endl;
-        if(stoi(token) != -1)
-            adj.push_back(stoi(token));
-    }
-    token = links.substr(pos);
-      cout << token << endl;
-    if(stoi(token) != -1)
-        adj.push_back(stoi(token));
-
-    GRAPH[origin_index].second = adj;
-}
-
-/**
- * Insert all the adjacent vertex of all vertex on the graph.
- *
- * @param links vector of string that represent all the links of a vertex
- *              on the graph
- *
- * @return void
- */
-void insertLinksOnGraph(vector<string> links){
-    for(int i = 0; i < GRAPHSIZE; ++i)
-        processCodeLink(links[i], i);
-}
-
-/**
- * Calculate the weight of an edge given the credits and the dificulty
- *  of a course.
- *
- * @param cred integer that represent the number of hour/class of a class
- * @param f float that represent the dificulty factor of a course
- *
- * @return float value that represent the edge weight
- */
-float calculateWeight(int cred, float f){
-    return (cred*f);
-}
-
-/**
- * Insert inner node, node, and edges into the graph data structure.
- *
- * @param cod string that represent the id of a course
- * @param name string that represent the name of a course
- * @param cred integer that represent the number of hour/class of a class
- * @param f float that represent the dificulty factor of a course
- * @param i integer that represent the position of the vertex to insert into
- *          the graph
- *
- * @return void
- */
-void insertAllOnGraph(string cod, string name, int cred, float f, int i){
-    pair<string, string> inner_node = make_pair(cod, name);
-    pair<pair<string, string>, float> node = make_pair(inner_node, calculateWeight(cred, f));
-    pair<pair<pair<string, string>, float>, vector<int> > node_list = make_pair(node, vector<int>());
-
-    GRAPH[i] = node_list;
-}
-
-/**
- * Main function. Read and load basic data, then execute all main
- *  functionalities of the program.
- *
- * @return int 0 represents good exit, -1 represents bad exit
- */
-int main(){
-
-    char cod[15], name[50], links[500];
-    string scod, sname, slinks;
-    int cred, i = 0;
-    float f;
-    vector<string> link;
-
-    FILE *pF = fopen("courses.txt", "r");
-
-    if(pF == NULL) {
-        cout << "Error on open the file." << endl;
-        return -1;
-    }
-
-    while (fscanf(pF, "%s | %[^|] | %d | %f | %[^\n] ", cod, name, &cred, &f, links) != EOF)
-    {
-        slinks = links;
-        link.push_back(slinks);
-        scod = cod;
-        sname = name;
-        insertAllOnGraph(scod, sname, cred, f, i);
-        ++i;
-    }
-
-    insertLinksOnGraph(link);
-
-    topologicSort();
-
-    displayUI();
-    processUIChoice();
-
-    fclose(pF);
-
-    return 0;
-}
+            displayCritical
