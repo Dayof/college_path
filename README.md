@@ -52,7 +52,7 @@ O programa realiza as seguintes funcionalidades a partir do menu principal:
 - Calcula o peso de cada matéria a partir do seguinte cálculo : peso = número de créditos * fator de dificuldade da matéria;
 - Insere os dados de código, nome e peso das matérias nos vértices do grafo;
 - Processa e insere no grafo cada vértice adjacente das matérias do fluxo;
-- Faz a ordenação topológica usando o algoritmo de Khan;
+- Faz a ordenação topológica usando o algoritmo de Kahn;
 - Calcula o caminho crítico do fluxo do curso;
 - Mostra a interface de usuário na tela do terminal;
 - Espera receber alguma ação do usuário;
