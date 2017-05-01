@@ -194,8 +194,8 @@ void displayCriticalPathUI(){
 
 
 /**
- * displayWrongChoiceUI function. Display a message when the
- * user inputs a not valid choice for the processUIChoice.
+ * Display a message when the user inputs a not valid choice for the
+ *  processUIChoice.
  *
  * @return void
  */
@@ -207,8 +207,7 @@ void displayWrongChoiceUI(){
 
 
 /**
- * displayHelpUI function. Display the help screen.
- *
+ * Display the help screen.
  *
  * @return void
  */
@@ -231,8 +230,8 @@ void displayHelpUI(){
 
 
 /**
- * processUIChoice function. Process what is the user choice
- * of the main user interface and call the respective method.
+ * Process what is the user's choice of the main user interface
+ *  and call the respective method.
  *
  * @return void
  */
@@ -269,8 +268,7 @@ void processUIChoice(){
 }
 
 /**
- * displayUI function. Display the main user interface
- * of the project
+ * Display the main user interface of the project.
  *
  * @return void
  */
@@ -292,7 +290,7 @@ void displayUI(){
 
 
 /**
- * printAllAdj function. Print edges list of the graph
+ * Print all the edges of all the vertex of the graph.
  *
  * @return void
  */
@@ -306,8 +304,12 @@ void printAllAdj(){
 
 
 /**
- * processCodeLink function.
+ * Process a string of links to become a vector of indexes of a vertex.
  *
+ * @param links vector of string that represent all the links of a vertex
+ *              on the graph
+ * @param origin_index integer that represent the index of the vertex that
+ *                     contain these links
  *
  * @return void
  */
@@ -332,10 +334,11 @@ void processCodeLink(string links, int origin_index){
     GRAPH[origin_index].second = adj;
 }
 
-
 /**
- * insertLinksOnGraph function.
+ * Insert all the adjacent vertex of all vertex on the graph.
  *
+ * @param links vector of string that represent all the links of a vertex
+ *              on the graph
  *
  * @return void
  */
@@ -345,19 +348,27 @@ void insertLinksOnGraph(vector<string> links){
 }
 
 /**
- * calculateWeight function. Calculate the weight of an edge
- * given the credits and the dificulty of a course.
+ * Calculate the weight of an edge given the credits and the dificulty
+ *  of a course.
  *
- * @return float value that represents the edge weight
+ * @param cred integer that represent the number of hour/class of a class
+ * @param f float that represent the dificulty factor of a course
+ *
+ * @return float value that represent the edge weight
  */
 float calculateWeight(int cred, float f){
     return (cred*f);
 }
 
 /**
- * insertAllOnGraph function. Insert inner node, node, and edges into the
- * Graph data structure.
+ * Insert inner node, node, and edges into the graph data structure.
  *
+ * @param cod string that represent the id of a course
+ * @param name string that represent the name of a course
+ * @param cred integer that represent the number of hour/class of a class
+ * @param f float that represent the dificulty factor of a course
+ * @param i integer that represent the position of the vertex to insert into
+ *          the graph
  *
  * @return void
  */
