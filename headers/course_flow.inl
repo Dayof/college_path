@@ -29,8 +29,13 @@
 using namespace std;
 
 /* ----------- Definition of all functions of the program ----------- */
-void processUIChoice();
+
+/* -- Topological Sort -- */
+
 void topologicSort();
+
+/* -- Critical Path Method -- */
+
 int findIndexFromCod(string);
 pair<vector<int>, int> calculateCPM(int);
 
@@ -47,8 +52,10 @@ void displayDAG();
 void displayProgram();
 void pressToContinue();
 void printAllAdj();
+void processUIChoice();
 
 /* -- Functions to create and populate the base graph -- */
+
 void insertAllOnGraph(string, string, int, float, int);
 void insertLinksOnGraph(vector<string>);
 void processCodeLink(string, int);
