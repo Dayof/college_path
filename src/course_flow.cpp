@@ -310,4 +310,178 @@ void processUIChoice(){
             displayTopologicSortUI();
             displayUI();
         } else if(choice == 2){
-            displayCritical
+            displayCriticalPathUI();
+            displayUI();
+        } else if(choice == 3){
+            displayDAG();
+            displayUI();
+        } else if(choice == 4){
+            displayProgram();
+            displayUI();
+        } else if(choice == 5){
+            displayHelpUI();
+            displayUI();
+        } else {
+            displayWrongChoiceUI();
+        }
+
+        cin >> choice;
+    }
+
+}
+
+/**
+ * Displays the main user interface of the project.
+ *
+ * @return void
+ */
+void displayUI(){
+    CLEARSCR();
+
+    cout << "\t------------------------COLLEGE PATH------------------------" << endl;
+    cout << "\t-                                                          -" << endl;
+    cout << "\t- 1. Ordenacao Topologica                                  -" << endl;
+    cout << "\t- 2. Caminho Critico                                       -" << endl;
+    cout << "\t- 3. DAG                                                   -" << endl;
+    cout << "\t- 4. Curso                                                 -" << endl;
+    cout << "\t- 5. Ajuda                                                 -" << endl;
+    cout << "\t- 6. Sair                                                  -" << endl;
+    cout << "\t-                                                          -" << endl;
+    cout << "\t------------------------------------------------------------" << endl;
+    cout << endl << "\t>>> ";
+}
+
+
+/**
+ * Prints all the edges of all the vertex of the graph.
+ *
+ * @return void
+ */
+void printAllAdj(){
+    for(int i = 0; i < GRAPHSIZE; i++){
+        for(int j = 0; j < GRAPH[i].second.size();++j)
+            cout << GRAPH[i].second[j] << " ";
+        cout << endl;
+    }
+}
+
+
+/**
+ * Process a string of links to become a vector of indexes of a vertex.
+ *
+ * @param links vector of string that represent all the links of a vertex
+ *              on the graph
+ * @param origin_index integer that represent the index of the vertex that
+ *                     contain these links
+ *
+ * @return void
+ */
+void processCodeLink(string links, int origin_index){
+    string token;
+    size_t pos = 0, found ;
+    vector<int> adj;
+    int index;
+
+    while((found = links.find_first_of(' ', pos)) != (string::npos)){
+        token = links.substr(pos, found - pos);
+        pos = found + 1;
+        cout << token << endl;
+        if(stoi(token) != -1)
+            adj.push_back(stoi(token));
+    }
+    token = links.substr(pos);
+      cout << token << endl;
+    if(stoi(token) != -1)
+        adj.push_back(stoi(token));
+
+    GRAPH[origin_index].second = adj;
+}
+
+/**
+ * Inserts all the adjacent vertex of all vertex on the graph.
+ *
+ * @param links vector of string that represent all the links of a vertex
+ *              on the graph
+ *
+ * @return void
+ */
+void insertLinksOnGraph(vector<string> links){
+    for(int i = 0; i < GRAPHSIZE; ++i)
+        processCodeLink(links[i], i);
+}
+
+/**
+ * Calculates the weight of an edge given the credits and the dificulty
+ *  of a course.
+ *
+ * @param cred integer that represent the number of hour/class of a class
+ * @param f float that represent the dificulty factor of a course
+ *
+ * @return float value that represent the edge weight
+ */
+float calculateWeight(int cred, float f){
+    return (cred*f);
+}
+
+/**
+ * Inserts inner node, node, and edges into the graph data structure.
+ *
+ * @param cod string that represent the id of a course
+ * @param name string that represent the name of a course
+ * @param cred integer that represent the number of hour/class of a class
+ * @param f float that represent the dificulty factor of a course
+ * @param i integer that represent the position of the vertex to insert into
+ *          the graph
+ *
+ * @return void
+ */
+void insertAllOnGraph(string cod, string name, int cred, float f, int i){
+    pair<string, string> inner_node = make_pair(cod, name);
+    pair<pair<string, string>, float> node = make_pair(inner_node, calculateWeight(cred, f));
+    pair<pair<pair<string, string>, float>, vector<int> > node_list = make_pair(node, vector<int>());
+
+    GRAPH[i] = node_list;
+}
+
+/**
+ * Main function. Reads and loads basic data, then executes all main
+ *  functionalities of the program.
+ *
+ * @return int 0 represents good exit, -1 represents bad exit
+ */
+int main(){
+
+    char cod[15], name[50], links[500];
+    string scod, sname, slinks;
+    int cred, i = 0;
+    float f;
+    vector<string> link;
+
+    FILE *pF = fopen("courses.txt", "r");
+
+    if(pF == NULL) {
+        cout << "Error on open the file." << endl;
+        return -1;
+    }
+
+    while (fscanf(pF, "%s | %[^|] | %d | %f | %[^\n] ", cod, name, &cred, &f, links) != EOF)
+    {
+        slinks = links;
+        link.push_back(slinks);
+        scod = cod;
+        sname = name;
+        insertAllOnGraph(scod, sname, cred, f, i);
+        ++i;
+    }
+
+    insertLinksOnGraph(link);
+
+    topologicSort();
+
+    displayUI();
+    processUIChoice();
+
+    fclose(pF);
+
+    return 0;
+}
